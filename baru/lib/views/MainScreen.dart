@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
-
+  MainScreen({super.key});
+  String username;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +58,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         )
                     ),
+                    textFormField()
                   ],
                 ),
               ),

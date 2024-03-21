@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tugas1_login_page/views/SecondScreen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class MainScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MainScreenState();
+}
 
+class _MainScreenState extends State<StatefulWidget>{
+  String username = "";
+  String password = "";
+  bool isLoginSuccess = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +73,9 @@ class MainScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
+                              onChanged: (value) {
+                                username = value;
+                              },
                             ), // username
                             SizedBox(height: 10,),
                             TextFormField(
@@ -79,10 +89,37 @@ class MainScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                               ),
+                              obscureText: true,
+                              onChanged: (value) {
+                                password = value;
+                              },
                             ), // password
                             SizedBox(height: 15,),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  String text = '';
+                                  if (username == "lakhatekno" && password == "123123") {
+                                    setState(() {
+                                      text = "gustian masuk";
+                                      isLoginSuccess = true;
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                        return SecondScreen();
+                                      }));
+                                    });
+                                  } else {
+                                    setState(() {
+                                      text = "gustian ga masuk";
+                                      isLoginSuccess = false;
+                                    });
+                                  }
+
+                                  SnackBar snackBar = SnackBar(
+                                      content: Text(text),
+                                      backgroundColor: (isLoginSuccess) ? Colors.greenAccent : Colors.redAccent,
+                                  );
+
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                },
                                 style: ButtonStyle(
                                   foregroundColor: MaterialStateProperty.all(Colors.white),
                                   backgroundColor: MaterialStateProperty.all(Colors.greenAccent),
