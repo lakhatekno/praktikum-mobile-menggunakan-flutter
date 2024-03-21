@@ -15,12 +15,19 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.grocery.name),
+        title: Text(
+          widget.grocery.name,
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             icon: new Icon(Icons.favorite_border,), onPressed: () {},
           )
         ],
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.grey.shade900,
       ),
       body: Column(
         children: [
@@ -31,16 +38,29 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
           Text(
             widget.grocery.name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30
+            ),
           ),
+          SizedBox(height: 20),
           Row(
             children: [
-              Text("Rp. "),
-              Text(widget.grocery.price)
+              Text(
+                groceryPrice(widget.grocery.price),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25
+                ),
+              ),
             ],
           ),
           Row(
             children: [
-              Icon(Icons.star),
+              Icon(
+                Icons.star,
+                color: Colors.yellow,
+              ),
               Text(widget.grocery.reviewAverage),
               Text(" | Stok: "),
               Text(widget.grocery.stock)
@@ -49,15 +69,23 @@ class _DetailScreenState extends State<DetailScreen> {
           Container(
             child: Row(
               children:[
-                Icon(Icons.shop_2_rounded),
-                SizedBox(width: 15),
+                Icon(
+                  Icons.shop_2_rounded,
+                  color: Colors.green,
+                ),
+                SizedBox(width: 10),
                 Text(widget.grocery.storeName)
               ],
             ),
           ),
+          SizedBox(height: 20),
           Text(
-              widget.grocery.description
+              widget.grocery.description,
+            style: TextStyle(
+
+            ),
           ),
+          SizedBox(height: 20,),
           FloatingActionButton(
             onPressed: (){
                 _launchedUrl(widget.grocery.productUrl);
@@ -73,5 +101,9 @@ class _DetailScreenState extends State<DetailScreen> {
     if (!await launchUrl(_url)) {
       throw Exception("gabisa masuk $_url");
     }
+  }
+
+  String groceryPrice(String price) {
+    return "Rp. " + price;
   }
 }
